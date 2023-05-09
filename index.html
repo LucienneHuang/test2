@@ -72,9 +72,9 @@
             }
             // 改變卡牌背面的圖片
             if (name === 'food') {
-                $('.card-back ').css('background-image', 'url(../images/back_red.png)')
+                $('.card-back ').css('background-image', 'url(./images/back_red.png)')
             } else {
-                $('.card-back ').css('background-image', 'url(../images/back_blue.png)')
+                $('.card-back ').css('background-image', 'url(./images/back_blue.png)')
             }
             // 這裡參考威力彩作業亂數取不同數字的部分
             const group = []
@@ -92,9 +92,9 @@
 
             for (let i = 0; i < 16; i += 2) {
                 const num = i / 2
-                $('.card').eq(i).find('.card-front').css('background-image', `url(../images/` + name + `/` + group[j] + `-1.png)`)
+                $('.card').eq(i).find('.card-front').css('background-image', `url(./images/` + name + `/` + group[j] + `-1.png)`)
                 $('.card').eq(i).attr('data-card', num)
-                $('.card').eq(i + 1).find('.card-front').css('background-image', `url(../images/` + name + `/` + group[j] + `-2.png)`)
+                $('.card').eq(i + 1).find('.card-front').css('background-image', `url(./images/` + name + `/` + group[j] + `-2.png)`)
                 $('.card').eq(i + 1).attr('data-card', num)
                 j++
             }
