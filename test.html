@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: gray;
+        }
+
+        #light {
+            background: radial-gradient(rgb(255, 255, 140) 5%, rgb(255, 255, 97) 10%, gray 50%) center no-repeat;
+            width: 100%;
+            height: 100%;
+            animation: light 2s linear infinite alternate;
+        }
+
+        @keyframes light {
+            from {
+                background-size: 50% 50%;
+            }
+
+            to {
+                background-size: 100% 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="light"></div>
+    <a href="javascript:window.close();">關閉視窗</a>
+
+</html>
