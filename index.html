@@ -58,6 +58,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+
         function rand(min, max) {
             return Math.round(Math.random() * (max - min)) + min
         }
@@ -74,11 +75,8 @@
             `)
             }
             // 改變卡牌背面的圖片
-            if (name === 'food') {
-                $('.card-back ').css('background-image', 'url(./images/back_red.png)')
-            } else {
-                $('.card-back ').css('background-image', 'url(./images/back_blue.png)')
-            }
+            $('.card-back ').css('background-image', `url(./images/${name}_back.png)`)
+
             // 這裡參考威力彩作業亂數取不同數字的部分
             const group = []
             const numbers = []
@@ -107,10 +105,8 @@
             }
         }
         Swal.fire({
-            icon: 'info',
-            title: '您好#@%@#%~$',
-            text: `歡迎$@~#%本台@%#*%)$#^
-            希望您#%@#$一天^&`,
+            html: '<div class="align-left">你不知道這裡是哪裡，也不記得你為什麼會出現在這裡，眼前除了一台古早的電視機外什麼都沒有。<br>......如果不把那隱隱約約的窺伺感算進去的話。</div>',
+            confirmButtonText: '繼續'
         }).then(function () {
             $('#music')[0].play()
             $('#broken')[0].play()
@@ -124,6 +120,8 @@
                 $('#time-text').text(String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0'))
             }, 1000)
         })
+
+
         $('#click')[0].volume = 0.3
 
         // tvmode=0(食物) tvmode=1(景點)
@@ -137,11 +135,10 @@
         let minutes = 0
         // 來算播放第幾首歌
         let musicCount = 0
-
+        // 歌單
         const musicList = ['當愛已成往事', '魂縈舊夢', '月兒彎彎照九州', '何日君再來', '夜來香', '恨不相逢未嫁時']
-        // 計算花費的時間
-
-
+        let first = new Boolean(false)
+        let second = new Boolean(false)
         // 預設為 food
         random(17, 'food')
         // 點擊紅色小按鈕
@@ -342,13 +339,33 @@
                     $('.card:not(.card-close)').addClass('card-close')
                     if ($('.card-ok').length === $('.card').length) {
                         $('#eyes').css('display', 'block').addClass('fadein').removeClass('fadeout')
-                        Swal.fire({
-                            icon: 'info',
-                            title: '你好棒！',
-                            text: `你花了${minutes}分${seconds}秒完成！`,
-                        }).then(function () {
-                            $('#eyes').addClass('fadeout').removeClass('fadein')
-                        })
+                        if (tvmode === 0) {
+                            first = true
+                        } else {
+                            second = true
+                        }
+                        if (first === true && second === true) {
+                            Swal.fire({
+                                html: `<div class="align-left">你花了${minutes}分${seconds}秒完成另一個遊戲，這是最耗一個遊戲了。<br>空氣中傳來隱隱的躁動，你能感覺到祂很開心...因為很久沒有人來陪祂玩了<br><br>嗯？為什麼我會知道這件事...？</div>`,
+                                confirmButtonText: '掰掰'
+                            }).then(function () {
+                                window.close()
+                            })
+                        } else {
+                            Swal.fire({
+                                html: `<div class="align-left">你花了${minutes}分${seconds}秒完成這個遊戲，房間依然一片死寂，似乎沒有任何改變。</div>`,
+                                confirmButtonText: '...？'
+                            }).then(function () {
+                                $('#eyes').addClass('fadeout').removeClass('fadein')
+                            }).finally(function () {
+                                Swal.fire({
+                                    html: `...剛剛？錯覺嗎？`,
+                                    confirmButtonText: '......'
+                                })
+                            })
+
+                        }
+
                         clearInterval(timer)
                         $('#game .card').remove()
                         seconds = 0
